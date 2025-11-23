@@ -37,8 +37,10 @@ const Feed = () => {
       sortBy: sortBy,
       order: 'desc'
     });
+    console.log('Fetching with filters:', { category: selectedCategory, sortBy });
     const response = await fetch(`/api/prompt?${params}`);
     const data = await response.json();
+    console.log('Fetched posts:', data.length, 'posts');
 
     setAllPosts(data);
   };
@@ -124,8 +126,8 @@ const Feed = () => {
         </select>
       </div>
 
-      {/* Trending Section */}
-      {!searchText && trendingPosts.length > 0 && (
+      {/* Trending Section - Only show when no filters applied */}
+      {!searchText && selectedCategory === 'all' && sortBy === 'createdAt' && trendingPosts.length > 0 && (
         <div className='mt-10'>
           <h2 className='font-satoshi font-bold text-2xl text-gray-900 mb-4'>
             🔥 Trending This Week
@@ -140,7 +142,13 @@ const Feed = () => {
       {/* All Prompts */}
       <div className='mt-10'>
         <h2 className='font-satoshi font-bold text-2xl text-gray-900 mb-4'>
-          {searchText ? 'Search Results' : 'All Prompts'}
+          {searchText 
+            ? 'Search Results' 
+            : selectedCategory !== 'all' 
+              ? `${selectedCategory} Prompts` 
+              : sortBy !== 'createdAt'
+                ? `${sortBy === 'popular' ? 'Most Popular' : 'Highest Rated'} Prompts`
+                : 'All Prompts'}
         </h2>
         {searchText ? (
           <PromptCardList

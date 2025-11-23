@@ -44,11 +44,11 @@ const Nav = () => {
             </Link>
             
             <Image
-              src={session?.user.image || "/assets/images/profile_img.webp"}
+              src={session?.user.image || "/assets/icons/user.svg"}
               width={37}
               height={37}
               alt="profile"
-              className="rounded-full cursor-pointer"
+              className="rounded-full cursor-pointer bg-gray-200 p-1"
               onClick={() => setToggleDropdown((prev) => !prev)}
             />
 
@@ -103,11 +103,11 @@ const Nav = () => {
         {session?.user ? (
           <div className="flex">
             <Image
-              src={session?.user.image || "/assets/images/logo.svg"}
+              src={session?.user.image || "/assets/icons/user.svg"}
               width={37}
               height={37}
               alt="profile"
-              className="rounded-full"
+              className="rounded-full cursor-pointer bg-gray-200 p-1"
               onClick={() => setToggleDropdown((prev) => !prev)}
             />
 

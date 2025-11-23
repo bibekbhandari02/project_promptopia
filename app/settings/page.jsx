@@ -12,10 +12,15 @@ const Settings = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [stats, setStats] = useState({ posts: 0, bookmarks: 0, following: 0 });
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [imagePreview, setImagePreview] = useState("");
 
   useEffect(() => {
     if (session?.user?.name) {
       setUsername(session.user.name);
+    }
+    if (session?.user?.image) {
+      setImagePreview(session.user.image);
     }
   }, [session]);
 
@@ -132,17 +137,40 @@ const Settings = () => {
         {/* Profile Picture */}
         <div className="flex items-center gap-4 pb-6 border-b border-gray-200">
           <img
-            src={session.user.image || "/assets/images/logo.svg"}
+            src={imagePreview || "/assets/icons/user.svg"}
             alt="profile"
-            className="w-20 h-20 rounded-full object-cover"
+            className="w-20 h-20 rounded-full object-cover bg-gray-200 p-1"
           />
-          <div>
+          <div className="flex-1">
             <p className="font-satoshi font-semibold text-gray-900">
               Profile Picture
             </p>
-            <p className="text-sm text-gray-500">
-              Managed by your Google account
+            <p className="text-sm text-gray-500 mb-2">
+              {session.user.image ? 'From your Google account' : 'Upload a custom picture'}
             </p>
+            <label className="cursor-pointer">
+              <span className="text-sm text-blue-600 hover:text-blue-700">
+                {uploadingImage ? 'Uploading...' : 'Change Picture'}
+              </span>
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                disabled={uploadingImage}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    // For now, just show preview
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      setImagePreview(reader.result);
+                    };
+                    reader.readAsDataURL(file);
+                    setMessage("⚠️ Image upload feature coming soon! For now, your Google profile picture is used.");
+                  }
+                }}
+              />
+            </label>
           </div>
         </div>
 

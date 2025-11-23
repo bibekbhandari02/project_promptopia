@@ -254,11 +254,11 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick, onUpdate }
           onClick={handleProfileClick}
         >
           <Image
-            src={post.creator.image || "/assets/images/logo.svg"}
+            src={post.creator.image || "/assets/icons/user.svg"}
             alt='user_image'
             width={40}
             height={40}
-            className='rounded-full object-contain'
+            className='rounded-full object-contain bg-gray-200 p-1'
           />
 
           <div className='flex flex-col'>
@@ -391,11 +391,11 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick, onUpdate }
             {comments.map((comment) => (
               <div key={comment._id} className='flex gap-2 text-sm'>
                 <img
-                  src={comment.user?.image || "/assets/images/logo.svg"}
+                  src={comment.user?.image || "/assets/icons/user.svg"}
                   alt='user'
                   width={24}
                   height={24}
-                  className='rounded-full'
+                  className='rounded-full bg-gray-200 p-0.5'
                 />
                 <div>
                   <span className='font-semibold'>{comment.user?.username}</span>
