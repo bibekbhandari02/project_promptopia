@@ -254,7 +254,7 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick, onUpdate }
           onClick={handleProfileClick}
         >
           <Image
-            src={post.creator.image || "/assets/icons/user.svg"}
+            src="/assets/icons/user.svg"
             alt='user_image'
             width={40}
             height={40}
@@ -391,7 +391,7 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick, onUpdate }
             {comments.map((comment) => (
               <div key={comment._id} className='flex gap-2 text-sm'>
                 <img
-                  src={comment.user?.image || "/assets/icons/user.svg"}
+                  src="/assets/icons/user.svg"
                   alt='user'
                   width={24}
                   height={24}
