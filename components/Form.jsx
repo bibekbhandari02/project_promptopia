@@ -31,6 +31,24 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
 
         <label>
           <span className='font-satoshi font-semibold text-base text-gray-700'>
+            Category
+          </span>
+          <select
+            value={post.category || 'Other'}
+            onChange={(e) => setPost({ ...post, category: e.target.value })}
+            className='form_input'
+          >
+            <option value='AI Art'>AI Art</option>
+            <option value='Coding'>Coding</option>
+            <option value='Writing'>Writing</option>
+            <option value='Business'>Business</option>
+            <option value='Education'>Education</option>
+            <option value='Other'>Other</option>
+          </select>
+        </label>
+
+        <label>
+          <span className='font-satoshi font-semibold text-base text-gray-700'>
             Field of Prompt{" "}
             <span className='font-normal'>
               (#product, #webdevelopment, #idea, etc.)

@@ -9,7 +9,7 @@ const UpdatePrompt = () => {
   const searchParams = useSearchParams();
   const promptId = searchParams?.get("id");
 
-  const [post, setPost] = useState({ prompt: "", tag: "" });
+  const [post, setPost] = useState({ prompt: "", tag: "", category: "Other" });
   const [submitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -24,6 +24,7 @@ const UpdatePrompt = () => {
         setPost({
           prompt: data.prompt,
           tag: data.tag,
+          category: data.category || "Other",
         });
       } catch (error) {
         console.error("Error fetching prompt details:", error);
@@ -48,6 +49,7 @@ const UpdatePrompt = () => {
         body: JSON.stringify({
           prompt: post.prompt,
           tag: post.tag,
+          category: post.category,
         }),
       });
 

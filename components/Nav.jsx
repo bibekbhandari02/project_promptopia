@@ -35,22 +35,51 @@ const Nav = () => {
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
         {session?.user ? (
-          <div className="flex gap-3 md:gap-5">
+          <div className="flex gap-3 md:gap-5 items-center relative">
             <Link href="/create-prompt" className="black_btn">
               Create Post
             </Link>
-            <button type="button" onClick={signOut} className="outline_btn">
-              Sign Out
-            </button>
-            <Link href="/profile">
-              <Image
-                src={session?.user.image}
-                width={37}
-                height={37}
-                alt="profile"
-                className="rounded-full"
-              />
+            <Link href="/bookmarks" className="outline_btn">
+              Bookmarks
             </Link>
+            
+            <Image
+              src={session?.user.image || "/assets/images/profile_img.webp"}
+              width={37}
+              height={37}
+              alt="profile"
+              className="rounded-full cursor-pointer"
+              onClick={() => setToggleDropdown((prev) => !prev)}
+            />
+
+            {toggleDropdown && (
+              <div className="dropdown">
+                <Link
+                  href="/profile"
+                  className="dropdown_link"
+                  onClick={() => setToggleDropdown(false)}
+                >
+                  My Profile
+                </Link>
+                <Link
+                  href="/settings"
+                  className="dropdown_link"
+                  onClick={() => setToggleDropdown(false)}
+                >
+                  Settings
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setToggleDropdown(false);
+                    signOut();
+                  }}
+                  className="mt-5 w-full black_btn"
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <>
@@ -74,7 +103,7 @@ const Nav = () => {
         {session?.user ? (
           <div className="flex">
             <Image
-              src={session?.user.image}
+              src={session?.user.image || "/assets/images/logo.svg"}
               width={37}
               height={37}
               alt="profile"
@@ -97,6 +126,20 @@ const Nav = () => {
                   onClick={() => setToggleDropdown(false)}
                 >
                   Create Prompt
+                </Link>
+                <Link
+                  href="/bookmarks"
+                  className="dropdown_link"
+                  onClick={() => setToggleDropdown(false)}
+                >
+                  Bookmarks
+                </Link>
+                <Link
+                  href="/settings"
+                  className="dropdown_link"
+                  onClick={() => setToggleDropdown(false)}
+                >
+                  Settings
                 </Link>
                 <button
                   type="button"

@@ -16,8 +16,16 @@ const UserSchema = new Schema({
   },
   image:{
     type:String,
-  }
-});
+  },
+  bookmarks:[{
+    type: Schema.Types.ObjectId,
+    ref: 'Prompt',
+  }],
+  following:[{
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  }],
+}, { timestamps: true });
 
 const User = models.User || model("User", UserSchema);
 export default User;
